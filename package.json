@@ -1,0 +1,18 @@
+{
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
+  },
+  "devDependencies": {
+    "markdownlint": "^0.38.0",
+    "prettier": "^3.6.2",
+    "textlint": "^15.2.2",
+    "typescript": "^5.9.2",
+    "vitepress": "^1.6.4"
+  },
+  "dependencies": {
+    "@miletorix/vitepress-youtube-embed": "^1.0.2",
+    "jsdom": "^27.0.0"
+  }
+}
