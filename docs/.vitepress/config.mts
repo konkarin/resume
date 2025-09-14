@@ -1,6 +1,7 @@
 import { defineConfig } from "vitepress";
 
 export default defineConfig({
+  mpa: true,
   title: "konkarin's resume",
   description: "konkarin's resume",
   base: "/resume/",

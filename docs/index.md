@@ -1,5 +1,8 @@
 ---
 layout: doc
+navbar: false
+lastUpdated: false
+editLink: false
 ---
 
 # 職務経歴書
