@@ -1,13 +1,20 @@
 ---
-layout: doc
-navbar: false
-lastUpdated: false
-editLink: false
+layout: "../layouts/ResumeLayout.astro"
+title: 職務経歴書
 ---
+
+import ListItem from "../components/ListItem.astro";
+import LinkCard from "../components/LinkCard.astro";
+import YouTubeEmbed from "../components/YouTubeEmbed.astro";
+import TableOfContents from "../components/TableOfContents.astro";
+import { Image } from "astro:assets";
+import skills from "../assets/skills.png";
+import summit1 from "../assets/summit1.jpg";
+import summit2 from "../assets/summit2.jpg";
 
 # 職務経歴書
 
-[[toc]]
+<TableOfContents headings={getHeadings()} />
 
 ## 基本情報
 
@@ -36,26 +43,34 @@ editLink: false
 
 ### 得意な領域
 
-<ListItem logo="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1200px-Vue.js_Logo_2.svg.png">
-  <template #title>Vue.js</template>
-  2019年から業務経験があり、Vueがどのように動いているか理解しています。内部処理を説明できる（わからなかったらリポジトリ見て調べられる）くらい好きです。いくつか解説記事をも書いています。
-</ListItem>
+<ListItem
+  title="Vue.js"
+  description="2019年から業務経験があり、Vueがどのように動いているか理解しています。内部処理を説明できる（わからなかったらリポジトリ見て調べられる）くらい好きです。いくつか解説記事をも書いています。"
+  logo="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1200px-Vue.js_Logo_2.svg.png"
+></ListItem>
 
-<ListItem logo="https://nuxt.com/assets/design-kit/icon-green.png">
-  <template #title>Nuxt</template>
-  2020年から業務経験があり、SPA/SSGの利用経験があります。SSRの経験はありませんが、ライフサイクルやハイドレーションの概念を理解しています。<br/>30万行のNuxt2→3の移行経験があり、Vue Fes Japan 2024の登壇や、Nuxtの挙動の解説記事などコミュニティに積極的に貢献しています。
-</ListItem>
+<ListItem
+  title="Nuxt"
+  description="2020年から業務経験があり、SPA/SSGの利用経験があります。SSRの経験はありませんが、ライフサイクルやハイドレーションの概念を理解しています。30万行のNuxt2→3の移行経験があり、Vue Fes Japan 2024の登壇や、Nuxtの挙動の解説記事などコミュニティに積極的に貢献しています。"
+  logo="https://nuxt.com/assets/design-kit/icon-green.png"
+></ListItem>
 
-<ListItem logo="https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg">
-  <template #title>TypeScript</template>
-  2021年から業務経験があり、型安全な設計、開発ができます。Utility Typesやアンビエント宣言、tsconfigの設定などひととおり触れています。OSSなどライブラリの型定義を理解し、正しく型安全に扱うことができます。複雑なジェネリクスは理解に時間がかかります。
-</ListItem>
+<ListItem
+  title="TypeScript"
+  description="2021年から業務経験があり、型安全な設計、開発ができます。Utility Typesやアンビエント宣言、tsconfigの設定などひととおり触れています。OSSなどライブラリの型定義を理解し、正しく型安全に扱うことができます。複雑なジェネリクスは理解に時間がかかります。"
+  logo="https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg"
+></ListItem>
 
 ### その他の技術経験
 
 業務経験と個人開発経験がある技術です。必要があれば随時キャッチアップできます。
 
-![image.png](/image.png)
+<Image
+  src={skills}
+  width="700"
+  quality="100"
+  alt="react,next.js,storybook,vite,webpack,vitest,jest,playwright,figma,aws,googole cloud,github,circleci,firebase,eslint,prettier"
+/>
 
 ### 登壇・執筆経験
 
@@ -92,9 +107,7 @@ editLink: false
 昨今のAIの拡大に開発組織として追従するために、私が発起人となり熱量が高い数名の有志と共に委員会を立ち上げて活動・運営しています。主に週次の報告会と社内のAI活用の推進をし、テックブログを通して対外的にも発信しています。また、立ち上げ時に法務・情シス・セキュリティチームを巻き込んでAIのリスクアセスメントチームを立ち上げていただき、会社全体で安全にAIの推進を行っています。  
 実務ではAI活用による生産性向上の最大化のためのガードレールづくりとしてテスト・静的解析の強化やドキュメント整備に取り組んでいます。
 
-<LinkCard url="https://tech.yappli.io/entry/ai-committee"/>
-
-<!-- [プロダクト開発本部でAI委員会を立ち上げました - Yappli Tech Blog]() -->
+<LinkCard url="https://tech.yappli.io/entry/ai-committee" />
 
 #### エンジニアリングマネージャー（2024年〜現在）
 
@@ -110,7 +123,7 @@ editLink: false
 Vue Fes Japan 2024と社内のテックカンファレンスの登壇資料もあるので詳しくは以下をご参照ください。  
 今後も積極的にカンファレンス・イベントに登壇したいと思っています。
 
-<YouTubeEmbed video-id="K2OPMnRsYo0" />
+<YouTubeEmbed url="https://www.youtube.com/embed/K2OPMnRsYo0" />
 
 <LinkCard url="https://speakerdeck.com/konkarin/vue-fes-japan-2024-nuxt3-version-up" />
 
@@ -138,8 +151,8 @@ VueとNuxtを使った30万行・1400コンポーネントを超えるYappliの�
 200人超のお客様の前で基調講演の開発パートをエンジニア代表として登壇しました。既存/新規のお客様に対し、Yappliの管理画面に追加した機能をより魅力的に感じられるようアピールしました。相当緊張しましたが、人前で話すのは得意です。
 
 <p style="display: flex; flex-direction: row; gap: 1rem;">
-<img src="/HallB_0188.jpg" width="300">
-<img src="/HallB_0194.jpg" width="300">
+  <Image src={summit1} width="300" alt="" />
+  <Image src={summit2} width="300" alt="" />
 </p>
 
 #### 過去の取り組み一覧
@@ -148,7 +161,8 @@ https://konkarin.notion.site/244882cd3e3080d18881fb95c7e8908f?v=244882cd3e308043
 
 ### 2. 株式会社ＣＲＩ・ミドルウェア（2019/10〜2021/11）
 
-:::details
+<details>
+<summary>詳細</summary>
 
 |              |                                                                                                                                                             |
 | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -207,11 +221,12 @@ https://konkarin.notion.site/244882cd3e3080d18881fb95c7e8908f?v=244882cd3e308043
   - **レガシーブラウザの対応**
     IE11に対応させるために、BabelによるトランスパイルとPolyfill.ioを利用しました。対応をすすめる上で、できるだけ早いタイミングでIE11での動作確認をし、ブラウザ特有の不具合をいち早く見つけて対応することで、開発時の手戻りを減らしました。
 
-:::
+</details>
 
 ### 3. 株式会社日立システムズ（2018/04〜2019/09）
 
-:::details
+<details>
+<summary>詳細</summary>
 
 |              |                                                                                                                      |
 | ------------ | -------------------------------------------------------------------------------------------------------------------- |
@@ -238,7 +253,7 @@ https://konkarin.notion.site/244882cd3e3080d18881fb95c7e8908f?v=244882cd3e308043
     Azure上のVMにデプロイされているWebサーバーやRDBMS、OSなどのバージョンアップ対応をしました。ここでは現状使われている各種設定や機能について、新しいバージョンでの動作可否や迂回策などを検討し、一つ一つ丁寧に項目を列挙し検証していきました。
     また、RHELの使い方や基本的なUNIXコマンド、クラウド上のVMなどの構造や設定方法を学びました。
 
-:::
+</details>
 
 ## 価値観
 

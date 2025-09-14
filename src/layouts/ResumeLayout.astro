@@ -1,0 +1,74 @@
+---
+import "../styles/custom.css";
+const { frontmatter } = Astro.props;
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{frontmatter.title}</title>
+  </head>
+  <body class="markdown-body">
+    <main class="container">
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  * {
+    box-sizing: border-box;
+  }
+  .container {
+    margin: auto;
+    padding: 2rem;
+    max-width: 80ch;
+  }
+
+  details > summary {
+    margin-bottom: 1rem;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+
+  .anchor-link {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    margin-left: -0.87em;
+    font-weight: 500;
+    user-select: none;
+    opacity: 0;
+    text-decoration: none;
+    transition:
+      color 0.25s,
+      opacity 0.25s;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    position: relative;
+  }
+  h1:hover > .anchor-link,
+  h2:hover > .anchor-link,
+  h3:hover > .anchor-link,
+  h4:hover > .anchor-link,
+  h5:hover > .anchor-link,
+  h6:hover > .anchor-link {
+    opacity: 1;
+  }
+
+  /* Remove depth-specific padding as nesting handles it */
+  .toc .depth-2,
+  .toc .depth-3,
+  .toc .depth-4 {
+    padding-left: 0;
+  }
+</style>

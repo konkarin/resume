@@ -1,0 +1,29 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+  children?: Heading[];
+}
+
+interface Props extends HTMLAttributes<"ul"> {
+  items: Heading[];
+}
+
+const { items, ...attrs } = Astro.props;
+---
+
+<ul {...attrs}>
+  {
+    items.map((item) => (
+      <li>
+        <a href={`#${item.slug}`}>{item.text}</a>
+        {item.children && item.children.length > 0 && (
+          <Astro.self items={item.children} />
+        )}
+      </li>
+    ))
+  }
+</ul>

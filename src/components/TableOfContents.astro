@@ -1,0 +1,81 @@
+---
+import NestedList from "./NestedList.astro";
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+  children?: Heading[];
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+
+const filteredHeadings = headings.filter(
+  (heading) => heading.depth >= 2 && heading.depth <= 3,
+);
+
+function nestHeadings(headings: Heading[]): Heading[] {
+  const nestedHeadings: Heading[] = [];
+  const headingStack: Heading[] = [];
+
+  headings.forEach((heading) => {
+    while (
+      headingStack.length > 0 &&
+      heading.depth <= headingStack[headingStack.length - 1].depth
+    ) {
+      headingStack.pop();
+    }
+
+    if (headingStack.length > 0) {
+      const parent = headingStack[headingStack.length - 1];
+      if (!parent.children) {
+        parent.children = [];
+      }
+      parent.children.push(heading);
+    } else {
+      nestedHeadings.push(heading);
+    }
+
+    headingStack.push(heading);
+  });
+
+  return nestedHeadings;
+}
+
+const nestedHeadings = nestHeadings(filteredHeadings);
+---
+
+<div class="toc">
+  <nav>
+    <NestedList items={nestedHeadings} />
+  </nav>
+</div>
+
+<style is:global>
+  .toc {
+    width: 100%;
+    margin: 1rem;
+  }
+
+  .toc h2 {
+    margin-top: 0;
+    font-size: 1.2rem;
+  }
+
+  .toc ul {
+    padding: 0;
+  }
+
+  .toc li {
+    margin-bottom: 0.5rem;
+  }
+
+  .toc li ul {
+    padding-left: 1rem; /* Indent nested lists */
+    margin-top: 0.5rem;
+  }
+</style>

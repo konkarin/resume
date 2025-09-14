@@ -1,18 +1,31 @@
 {
+  "name": "resume-astro",
+  "type": "module",
+  "version": "0.0.1",
   "scripts": {
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
-  },
-  "devDependencies": {
-    "markdownlint": "^0.38.0",
-    "prettier": "^3.6.2",
-    "textlint": "^15.2.2",
-    "typescript": "^5.9.2",
-    "vitepress": "^1.6.4"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "dependencies": {
-    "@miletorix/vitepress-youtube-embed": "^1.0.2",
-    "jsdom": "^27.0.0"
+    "@astrojs/markdown-remark": "^6.3.6",
+    "@astrojs/mdx": "^4.3.5",
+    "astro": "^5.6.1",
+    "github-markdown-css": "^5.8.1",
+    "jsdom": "^24.1.0",
+    "rehype-autolink-headings": "^7.1.0",
+    "sharp": "^0.34.2"
+  },
+  "devDependencies": {
+    "@types/jsdom": "^21.1.7",
+    "prettier": "^3.6.2",
+    "prettier-plugin-astro": "^0.14.1"
+  },
+  "prettier": {
+    "plugins": [
+      "prettier-plugin-astro"
+    ]
   }
 }

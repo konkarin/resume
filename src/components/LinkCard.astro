@@ -1,0 +1,182 @@
+---
+import { JSDOM } from "jsdom";
+
+interface Props {
+  url: string;
+}
+
+const { url } = Astro.props;
+
+let title: string = "";
+let description: string = "";
+let image: string = "";
+let logo: string = "";
+let alt: string = "";
+
+try {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  const html: string = await response.text();
+  const dom = new JSDOM(html);
+  const doc = dom.window.document;
+
+  const getMetaContent = (property: string): string | null => {
+    const el = doc.querySelector(`meta[property="${property}"]`);
+    return el ? el.getAttribute("content") : null;
+  };
+
+  const getLinkHref = (rel: string): string | null => {
+    const el = doc.querySelector(`link[rel*="${rel}"]`);
+    return el ? el.getAttribute("href") : null;
+  };
+
+  title = getMetaContent("og:title") || doc.title || "";
+  description = getMetaContent("og:description") || "";
+  image = getMetaContent("og:image") || "";
+  alt = getMetaContent("og:image:alt") || "";
+
+  let iconHref: string | null = getLinkHref("icon");
+  if (iconHref && iconHref.startsWith("http")) {
+    logo = iconHref;
+  } else if (iconHref) {
+    const urlObj = new URL(url);
+    logo = new URL(iconHref, urlObj.origin).href;
+  }
+} catch (error) {
+  console.error("Error fetching OGP data:", error);
+}
+---
+
+{
+  title ? (
+    <a href={url} target="_blank" rel="noopener noreferrer" class="link-card">
+      <div class="link-card-content">
+        <div class="text-content">
+          <h3 class="link-title">{title}</h3>
+          <p class="link-description">{description}</p>
+          <div class="link-source">
+            {logo && <img src={logo} alt="Website Logo" class="source-logo" />}
+            <span class="source-url">{url}</span>
+          </div>
+        </div>
+        {image && (
+          <div class="image-container">
+            <img
+              src={image}
+              alt={alt || "Article Thumbnail"}
+              class="link-image"
+            />
+          </div>
+        )}
+      </div>
+    </a>
+  ) : (
+    <a href={url} target="_blank" rel="noopener noreferrer" class="plain-link">
+      {url}
+    </a>
+  )
+}
+
+<style>
+  .plain-link {
+    display: block;
+    margin: 1rem 0;
+  }
+  .link-card {
+    display: block;
+    width: 100%;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    margin: 1rem 0;
+  }
+
+  .link-card:hover {
+    background-color: #f5f5f5;
+    text-decoration: none;
+  }
+
+  .link-card-content {
+    display: flex;
+  }
+
+  .text-content {
+    flex: 1;
+    min-width: 0;
+    gap: 4px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .link-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+    height: 1.5rem;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .link-description {
+    font-size: 0.875rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .link-source {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.75rem;
+    color: var(--sl-color-gray-4);
+    overflow: hidden;
+  }
+
+  .source-logo {
+    width: 24px;
+    border-radius: 4px;
+  }
+
+  .image-container {
+    width: 250px;
+    max-height: 130px;
+    flex-shrink: 0;
+  }
+
+  .link-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* レスポンシブ対応 */
+  @media (max-width: 600px) {
+    .link-card-content {
+      flex-direction: column-reverse;
+    }
+    .image-container {
+      width: 100%;
+      height: auto;
+    }
+    .link-image {
+      aspect-ratio: 16/9;
+    }
+  }
+</style>
