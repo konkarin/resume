@@ -167,16 +167,21 @@ try {
   }
 
   /* レスポンシブ対応 */
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     .link-card-content {
       flex-direction: column-reverse;
     }
     .image-container {
       width: 100%;
       height: auto;
+      max-height: none;
     }
     .link-image {
       aspect-ratio: 16/9;
+    }
+    .link-title {
+      white-space: normal;
+      height: auto;
     }
   }
 </style>
