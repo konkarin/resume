@@ -20,7 +20,14 @@
       </div>
     </div>
   </a>
-  <a v-else :href="url" target="_blank" rel="noopener noreferrer">{{ url }}</a>
+  <a
+    v-else
+    :href="url"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="plain-link"
+    >{{ url }}</a
+  >
 </template>
 
 <script setup lang="ts">
@@ -101,6 +108,10 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.plain-link {
+  display: block;
+  margin: 1rem 0;
+}
 .link-card {
   display: block;
   width: 100%;
@@ -111,6 +122,7 @@ onMounted(() => {
   color: inherit;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
+  margin: 1rem 0;
 }
 
 .link-card:hover {
