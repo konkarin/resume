@@ -57,17 +57,13 @@ try {
           <h3 class="link-title">{title}</h3>
           <p class="link-description">{description}</p>
           <div class="link-source">
-            {logo && <img src={logo} alt="Website Logo" class="source-logo" />}
+            {logo && <img src={logo} alt="" class="source-logo" />}
             <span class="source-url">{url}</span>
           </div>
         </div>
         {image && (
-          <div class="image-container">
-            <img
-              src={image}
-              alt={alt || "Article Thumbnail"}
-              class="link-image"
-            />
+          <div class="link-image-container">
+            <img src={image} alt={alt || ""} class="link-image" />
           </div>
         )}
       </div>
@@ -153,10 +149,13 @@ try {
     border-radius: 4px;
   }
 
-  .image-container {
+  .link-image-container {
     width: 250px;
     max-height: 130px;
     flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   .link-image {
@@ -166,12 +165,11 @@ try {
     display: block;
   }
 
-  /* レスポンシブ対応 */
-  @media (max-width: 768px) {
+  @media (max-width: 576px) {
     .link-card-content {
       flex-direction: column-reverse;
     }
-    .image-container {
+    .link-image-container {
       width: 100%;
       height: auto;
       max-height: none;

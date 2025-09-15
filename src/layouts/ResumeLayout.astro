@@ -14,6 +14,28 @@ const { frontmatter } = Astro.props;
     <main class="container">
       <slot />
     </main>
+
+    <script is:inline>
+      // 印刷前にすべてのdetailsを開く
+      window.addEventListener("beforeprint", function () {
+        const details = document.querySelectorAll("details");
+        details.forEach((detail) => {
+          if (!detail.open) {
+            detail.open = true;
+            detail.dataset.wasClosedBeforePrint = "true";
+          }
+        });
+      });
+
+      // 印刷後に元の状態に戻す
+      window.addEventListener("afterprint", function () {
+        const details = document.querySelectorAll('details[data-was-closed-before-print="true"]');
+        details.forEach((detail) => {
+          detail.open = false;
+          delete detail.dataset.wasClosedBeforePrint;
+        });
+      });
+    </script>
   </body>
 </html>
 
